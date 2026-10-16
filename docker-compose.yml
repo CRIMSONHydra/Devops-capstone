@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+    networks: [db-net]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ecommerce"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/ecommerce
+    networks: [web-net, db-net]
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    networks: [web-net]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+networks:
+  web-net:        # frontend <-> backend
+    driver: bridge
+  db-net:         # backend <-> database (no outside access)
+    driver: bridge
+    internal: true
+
+volumes:
+  pgdata:
