@@ -1,0 +1,20 @@
+image:
+  tag: ""   # required: the commit SHA CI pushed, e.g. --set image.tag=<sha>
+  pullPolicy: IfNotPresent   # keeps locally loaded (minikube) images usable, even with tag "latest"
+
+backend:
+  image: ghcr.io/crimsonhydra/devops-capstone/backend
+  replicas: 2
+
+frontend:
+  image: ghcr.io/crimsonhydra/devops-capstone/frontend
+  replicas: 2
+
+db:
+  image: postgres:16-alpine
+  name: ecommerce
+  user: postgres
+  password: postgres   # dev default - override with --set db.password=...
+
+ingress:
+  className: nginx
