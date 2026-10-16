@@ -1,0 +1,10 @@
+# kube-prometheus-stack values (for a fresh cluster):
+#   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+#   helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+#     -n monitoring --create-namespace -f monitoring/prometheus-values.yaml -f monitoring/grafana-values.yaml
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false   # scrape every ServiceMonitor, not just this release's
+    scrapeInterval: 15s
+alertmanager:
+  enabled: false   # not needed here, saves memory on minikube

@@ -1,0 +1,15 @@
+# Tells Prometheus (prometheus-operator) to scrape the backend's /metrics.
+# Only rendered when the ServiceMonitor CRD exists in the cluster.
+{{- if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor" }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels: { app: backend }
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+{{- end }}
