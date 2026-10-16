@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars (gitignored) and adjust. No credentials belong in this file:
+# authenticate with `aws configure`, AWS_PROFILE, or AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY env vars.
+region             = "ap-south-1"
+cluster_name       = "ecommerce-admin"
+node_instance_type = "t3.micro"
+node_desired_size  = 2

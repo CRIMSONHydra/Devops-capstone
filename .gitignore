@@ -13,3 +13,6 @@ dist/
 *.db-wal
 *.sqlite
 *.sqlite3
+terraform.tfvars
+*.auto.tfvars
+crash.log
