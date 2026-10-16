@@ -14,7 +14,7 @@ DB: psql + sqlite(test/dev)
 
 ## Commit history
 
-TODO
+![alt text](image-28.png)
 
 ## Docker
 
