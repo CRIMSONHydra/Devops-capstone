@@ -22,7 +22,7 @@ Frontend listens on port 3000, nginx proxies /api to backend container port 8000
 
 ![alt text](image-3.png)
 
-![alt text](image-4.png)
+![alt text](image-29.png)
 
 ## CI/CD
 

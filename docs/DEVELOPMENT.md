@@ -61,5 +61,3 @@ helm upgrade --install ecommerce helm/ecommerce-admin -n ecommerce \
 |---|---|
 | backend, frontend, docker-compose, tests | done |
 | `.github/workflows/ci-cd.yml`, `k8s/`, `helm/`, `terraform/`, `monitoring/`, `scripts/` | scaffold only |
-
-Screenshots: `docs/screenshots/`.
