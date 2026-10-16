@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12-alpine
 COPY --from=ghcr.io/astral-sh/uv:0.9.21 /uv /usr/local/bin/uv
 WORKDIR /srv
 
@@ -12,7 +12,7 @@ COPY alembic ./alembic
 COPY app ./app
 
 # Run as a non-root user
-RUN useradd -m appuser
+RUN adduser -D appuser
 USER appuser
 
 EXPOSE 8000
