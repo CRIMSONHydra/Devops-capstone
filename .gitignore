@@ -7,3 +7,9 @@ node_modules/
 dist/
 *.tfstate*
 .terraform/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3

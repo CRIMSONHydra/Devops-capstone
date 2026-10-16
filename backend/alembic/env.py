@@ -18,16 +18,28 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
+def _migrate(connection) -> None:
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        render_as_batch=connection.dialect.name == "sqlite",  # SQLite can't ALTER in place
+    )
+    with context.begin_transaction():
+        context.run_migrations()
+
+
 def run_migrations_online() -> None:
+    # Callers (the test suite) may hand in a ready connection, e.g. to migrate an in-memory DB.
+    if (connection := config.attributes.get("connection")) is not None:
+        _migrate(connection)
+        return
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
-        with context.begin_transaction():
-            context.run_migrations()
+        _migrate(connection)
 
 
 if context.is_offline_mode():

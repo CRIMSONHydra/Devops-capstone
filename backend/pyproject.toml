@@ -23,6 +23,3 @@ dev = [
 
 [tool.uv]
 package = false  # an application, not an installable library
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
